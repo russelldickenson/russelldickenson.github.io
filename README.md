@@ -32,7 +32,7 @@ Custom blog engine written in Go.
 
 ### Options
 
-Flags take predecence over options specific in the configuration file.
+Flags take precedence over options specified in the configuration file.
 
 | Flag | Description | Default |
 |------|-------------|---------|
@@ -67,10 +67,10 @@ Edit `config.yaml` to customize:
 
 | Directory | Contents |
 |-----------|----------|
-| `bin/` | Compiled binaries for different platforms |
+| repo root | Compiled binaries for supported platforms and `blog.sh` |
 | `content/` | Blog posts (Markdown files) |
 | `public/` | Generated blog output |
-| `src/` | Go source code |
+| `src/` | Go source code and Go module files |
 | `static/` | Static assets (JS, images) |
 | `themes/` | HTML templates and CSS themes |
 
@@ -80,12 +80,25 @@ Edit `config.yaml` to customize:
 
 - Go 1.26+
 
+### Run from source
+
+```bash
+cd src
+go run . -build
+go run . -serve
+```
+
+When run from `src/`, the engine finds the root `config.yaml` automatically.
+
 ### Build binaries
 
-The `build.sh` script builds binaries for macOS (Silicon) and Linux. The Linux build is intended for
-used in CI/CD environments. To build for other platforms, uncomment the relevant lines in the build
+The `src/build-blog-binaries.sh` script builds binaries for macOS (Silicon) and Linux at the repo
+root. The Linux build is intended for CI/CD environments. To build for other platforms, uncomment
+the relevant lines in the build
 script.
 
 ```bash
 # Build all platform binaries
-./bin/build.sh
+cd src
+./build-blog-binaries.sh
+```

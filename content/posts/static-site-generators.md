@@ -5,6 +5,8 @@ tags: ["static-site", "web-development"]
 description: "Why static sites are great"
 ---
 
+# Static Site Generators
+
 Static site generators have become popular again. Here's why they're excellent choice:
 
 ## Benefits

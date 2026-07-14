@@ -6,6 +6,8 @@ description: "This is a draft post that should not appear"
 draft: true
 ---
 
+# This is a Draft
+
 This post has `draft: true` in its frontmatter. It should be skipped during the build process when generating the public site.
 
 This is useful for:

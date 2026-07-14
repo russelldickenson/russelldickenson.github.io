@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagged "web-development" - My Blog</title>
+    <meta name="description" content="Posts tagged with web-development">
+    <link rel="canonical" href="http://localhost:3020/tags/web-development.html">
+    <meta name="myblog-base-url" content="/">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('blog-theme');
+            var theme = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="/themes/style.css">
+    <script src="/static/search.js" defer></script>
+    <script src="/static/theme-switcher.js" defer></script>
+    <script src="/static/sidebar-toggle.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <div class="header-title">
+                <h1><a href="/">My Blog</a></h1>
+                <p class="site-description">A simple static blog built with Go</p>
+            </div>
+            <div class="header-controls">
+                <div class="rss-container">
+                    <a id="rss-toggle" href="/feed.xml" aria-label="RSS Feed" title="RSS Feed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+                </div>
+                <button id="sidebar-toggle" aria-label="Toggle sidebar" title="Toggle sidebar"></button>
+                <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
+            </div>
+        </header>
+
+        <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+        <div class="main-layout sidebar-right">
+            <main class="content">
+                <h1 class="tag-heading">Posts tagged with "web-development"</h1>
+
+                
+                <section class="post-list">
+                    
+                    <article class="post-preview">
+                        <h2><a href="/posts/building-with-go.html">Building a Blog with Go</a></h2>
+                        <div class="post-meta">
+                            <time datetime="2024-02-10T00:00:00Z">February 10, 2024</time>
+                        </div>
+                        <p>How I built this blog engine</p>
+                        
+                        <div class="tags">
+                            <span class="tag">go</span><span class="tag">tutorial</span><span class="tag">web-development</span>
+                        </div>
+                        
+                    </article>
+                    
+                    <article class="post-preview">
+                        <h2><a href="/posts/static-site-generators.html">Static Site Generators</a></h2>
+                        <div class="post-meta">
+                            <time datetime="2024-02-01T00:00:00Z">February 1, 2024</time>
+                        </div>
+                        <p>Why static sites are great</p>
+                        
+                        <div class="tags">
+                            <span class="tag">static-site</span><span class="tag">web-development</span>
+                        </div>
+                        
+                    </article>
+                    
+                </section>
+                
+            </main>
+
+            <aside class="sidebar" aria-hidden="false">
+                
+<div class="sidebar-content">
+    
+    <section class="search">
+        <h3>Search</h3>
+        <input type="text" id="search-input" placeholder="Search posts...">
+        <div id="search-results"></div>
+    </section>
+    
+
+    
+    <section class="tag-cloud sidebar-tags">
+        <h3>Tags</h3>
+        <div class="tags">
+            
+            <a href="/tags/first-post.html" class="tag">first-post</a>
+            
+            <a href="/tags/go.html" class="tag">go</a>
+            
+            <a href="/tags/intro.html" class="tag">intro</a>
+            
+            <a href="/tags/markdown.html" class="tag">markdown</a>
+            
+            <a href="/tags/static-site.html" class="tag">static-site</a>
+            
+            <a href="/tags/tutorial.html" class="tag">tutorial</a>
+            
+            <a href="/tags/web-development.html" class="tag">web-development</a>
+            
+        </div>
+    </section>
+    
+
+    
+    <section class="recent-posts">
+        <h3>Recent Posts</h3>
+        <ul>
+            
+            <li><a href="/posts/building-with-go.html">Building a Blog with Go</a></li>
+            
+            <li><a href="/posts/static-site-generators.html">Static Site Generators</a></li>
+            
+            <li><a href="/posts/markdown-features.html">Markdown Features</a></li>
+            
+            <li><a href="/posts/hello-world.html">Hello World</a></li>
+            
+            <li><a href="/posts/hello-world_2.html">Hello World</a></li>
+            
+        </ul>
+    </section>
+    
+</div>
+
+            </aside>
+        </div>
+        <button id="sidebar-edge-handle" class="sidebar-edge-handle" aria-label="Open sidebar" title="Open sidebar" aria-hidden="true" tabindex="-1">
+            <span class="sidebar-edge-handle-icon" aria-hidden="true"></span>
+        </button>
+
+        <footer class="site-footer">
+            <p>&copy; July 14, 2026 Russell Dickenson</p>
+        </footer>
+    </div>
+</body>
+</html>

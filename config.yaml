@@ -22,7 +22,3 @@ features:
   rss: true
   code_highlighting: true
   search: true
-
-themes:
-  light: "light"
-  dark: "dark"

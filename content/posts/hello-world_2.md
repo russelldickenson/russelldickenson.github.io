@@ -2,8 +2,10 @@
 title: "Hello World"
 date: 2024-01-15
 tags: ["intro", "first-post"]
-description: "My second blog post"
+description: "My first blog post"
 ---
+
+# Hello World
 
 Welcome to my new blog! This is my first post written in Markdown.
 

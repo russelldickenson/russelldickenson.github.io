@@ -1,14 +1,12 @@
-# Theming guide
+# Theming Guide
 
-## Overview
-
-The blog supports light and dark themes that users can toggle. Themes are implemented using CSS files that get swapped at runtime via JavaScript.
+The active color theme of the blog is toggled at runtime using JavaScript by updating a `data-theme` attribute on the root HTML element.
 
 ## How it works
 
 ### 1. Theme Files
 
-Theme CSS files are located in the `themes/` directory:
+All CSS styles and theme declarations are located in the `themes/` directory within a single stylesheet:
 
 ```plaintext
 themes/
@@ -16,16 +14,15 @@ themes/
 ├── post.html
 ├── tag.html
 ├── sidebar.html
-├── light.css        # Light theme styles
-└── dark.css         # Dark theme styles
+└── style.css        # Unified stylesheet containing layouts and both themes
 ```
 
-### 2. CSS custom properties
+### 2. CSS Custom Properties
 
-Themes use CSS custom properties (CSS variables) for colors and styling. This allows for easy theming without duplicating styles:
+Both light and dark color schemes are defined within [style.css](file:///Users/russell/personal/repos/simpleblog/themes/style.css) using CSS custom properties (variables). This ensures that structural layouts are shared, preventing styling inconsistencies:
 
 ```css
-/* light.css example */
+/* themes/style.css */
 :root {
     --bg-color: #ffffff;
     --text-color: #333333;
@@ -34,104 +31,64 @@ Themes use CSS custom properties (CSS variables) for colors and styling. This al
     --border-color: #dddddd;
     --code-bg: #f4f4f4;
     --tag-bg: #e8e8e8;
+    --backdrop-bg: rgba(0, 0, 0, 0.35);
+    --handle-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    --blockquote-border: var(--border-color);
+    --tag-hover-color: #ffffff;
 }
 
-/* dark.css example */
-:root {
+[data-theme="dark"] {
     --bg-color: #0d1117;
     --text-color: #c9d1d9;
     --link-color: #58a6ff;
     --header-bg: #161b22;
     --border-color: #30363d;
-    --code-bg: #161b22;
+    --code-bg: #1f2428;
     --tag-bg: #21262d;
+    --backdrop-bg: rgba(0, 0, 0, 0.5);
+    --handle-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+    --blockquote-border: var(--link-color);
+    --tag-hover-color: var(--bg-color);
 }
 ```
 
-### 3. Runtime theme switching
+### 3. Runtime Theme Switching
 
-The theme switcher uses JavaScript to:
+To prevent Flash of Unstyled Content (FOUC), theme loading and toggling works as follows:
 
-1. Detect system preference on first visit
-2. Store user's choice in localStorage
-3. Swap the CSS file when toggling themes
+1. **Synchronous Init**: An inline script in the `<head>` of [layout.html](file:///Users/russell/personal/repos/simpleblog/themes/layout.html) reads the user's preference from `localStorage` (or falls back to their operating system color scheme preference) and sets the `data-theme` attribute on `document.documentElement` before the page is rendered.
+2. **Toggle Button**: Clicking the theme switcher button calls `toggleTheme()` in [theme-switcher.js](file:///Users/russell/personal/repos/simpleblog/static/theme-switcher.js), which toggles the `data-theme` attribute on `document.documentElement` and saves the selection to `localStorage`.
 
-The theme toggle button appears in the site header. Clicking it switches between `/themes/light.css` and `/themes/dark.css`.
+---
 
-## Creating a new theme
+## Modifying or Adding Themes
 
-### Step 1: Create theme CSS file
+To modify the colors of the light or dark themes, simply edit the CSS variable declarations inside [style.css](file:///Users/russell/personal/repos/simpleblog/themes/style.css):
 
-Create a new CSS file in the `themes/` directory:
+* Edit values under `:root` to change the **light theme**.
+* Edit values under `[data-theme="dark"]` to change the **dark theme**.
 
-```bash
-# Example: Creating a "blue" theme
-touch themes/blue.css
-```
-
-### Step 2: Define CSS variables
-
-Add your theme's color scheme using CSS custom properties:
-
-```css
-:root {
-    --bg-color: #e3f2fd;
-    --text-color: #1565c0;
-    --link-color: #1976d2;
-    --header-bg: #bbdefb;
-    --border-color: #90caf9;
-    --code-bg: #bbdefb;
-    --tag-bg: #bbdefb;
-}
-```
-
-### Step 3: Update configuration
-
-Edit `config.yaml` to add your new theme:
-
-```yaml
-themes:
-  light: "blue"    # Your new theme
-  dark: "dark"     # Existing dark theme
-```
-
-### Step 4: Build and test
-
-```bash
-./blog.sh -build
-```
-
-The new theme's CSS will be copied to `public/themes/blue.css` and used as the light theme.
-
-## Theme variables reference
+### Theme Variables Reference
 
 | Variable | Purpose |
 |----------|---------|
-| `--bg-color` | Page background |
+| `--bg-color` | Page background color |
 | `--text-color` | Main text color |
-| `--link-color` | Link color |
+| `--text-muted` | Muted metadata and helper text color |
+| `--link-color` | Link and accent color |
 | `--header-bg` | Header background |
-| `--border-color` | Border color |
-| `--code-bg` | Code block background |
-| `--tag-bg` | Tag background |
+| `--border-color` | Standard border and line color |
+| `--code-bg` | Inline code and blockquote code blocks background |
+| `--tag-bg` | Tag block background |
+| `--backdrop-bg` | Sidebar overlay overlay background |
+| `--handle-shadow` | Shadow color for sidebar grip handle |
+| `--blockquote-border` | Left border accent color for blockquotes |
+| `--tag-hover-color` | Text color of tag labels when hovered |
 
-## Adding more themes
+---
 
-You can have multiple themes beyond just light and dark. For example:
+## Best Practices
 
-```yaml
-themes:
-  light: "blue"     # Blue-themed light mode
-  dark: "dark"      # Default dark mode
-```
-
-The blog will generate CSS files for both themes at build time:
-- `public/themes/blue.css`
-- `public/themes/dark.css`
-
-## Best practices
-
-1. **Define all variables**: Ensure your theme defines all CSS custom properties used in the templates
-2. **Test contrast**: Verify text is readable against backgrounds
-3. **Match element styling**: Consider how all elements look (headers, code blocks, tags, etc.)
-4. **Keep themes consistent**: Similar visual weight and feel between light/dark variants
+1. **Keep variables synchronized**: If you add a new CSS custom property to light mode (`:root`), make sure to provide an override value for dark mode (`[data-theme="dark"]`).
+2. **Verify contrast**: Ensure text elements meet readability guidelines against their respective theme background colors.
+3. **Use semantic variables**: Avoid styling elements with hardcoded colors; map them to an existing or new theme variable in `style.css`.

@@ -8,7 +8,14 @@
     <link rel="canonical" href="{{absURL .CanonicalPath}}">
     <meta name="myblog-base-url" content="{{baseURL}}">
     {{if .Site.Site.Favicon}}<link rel="icon" href="{{relURL .Site.Site.Favicon}}">{{end}}
-    <link rel="stylesheet" href="{{relURL "themes/light.css"}}" id="theme-stylesheet">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('blog-theme');
+            var theme = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="{{relURL "themes/style.css"}}">
     {{if .SearchEnabled}}<script src="{{relURL "static/search.js"}}" defer></script>{{end}}
     <script src="{{relURL "static/theme-switcher.js"}}" defer></script>
     <script src="{{relURL "static/sidebar-toggle.js"}}" defer></script>

@@ -5,6 +5,8 @@ tags: ["go", "tutorial", "web-development"]
 description: "How I built this blog engine"
 ---
 
+# Building a Blog with Go
+
 I built this blog engine from scratch using Go. Here's how it works:
 
 ## Architecture
