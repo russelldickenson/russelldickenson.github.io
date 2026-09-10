@@ -1,0 +1,72 @@
+{{define "404"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - {{.Site.Site.Title}}</title>
+    <meta name="description" content="The page you were looking for could not be found.">
+    <meta name="robots" content="noindex">
+    <meta name="myblog-base-url" content="{{baseURL}}">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('blog-theme');
+            var theme = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="{{relURL "themes/style.css"}}">
+    <script src="{{relURL "static/search-index.js"}}" defer></script>
+    {{if .SearchEnabled}}<script src="{{relURL "static/search.js"}}" defer></script>{{end}}
+    <script src="{{relURL "static/tags.js"}}" defer></script>
+    <script src="{{relURL "static/theme-switcher.js"}}" defer></script>
+    <script src="{{relURL "static/sidebar-toggle.js"}}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <div class="header-title">
+                <h1><a href="{{baseURL}}">{{.Site.Site.Title}}</a></h1>
+                <p class="site-description">{{.Site.Site.Description}}</p>
+            </div>
+            {{if .Site.Site.HeaderLinks}}
+            <nav class="header-nav" aria-label="Main Navigation">
+                {{range .Site.Site.HeaderLinks}}
+                <a href="{{relURL .URL}}" class="nav-link">{{.Name}}</a>
+                {{end}}
+            </nav>
+            {{end}}
+            <div class="header-controls">
+                <div class="rss-container">
+                    <a id="rss-toggle" href="{{relURL "feed.xml"}}" aria-label="RSS Feed" title="RSS Feed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+                </div>
+                <button id="sidebar-toggle" aria-label="Toggle sidebar" title="Toggle sidebar"></button>
+                <button id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
+            </div>
+        </header>
+
+        <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+        <div class="main-layout {{if .SidebarLeft}}sidebar-left{{else}}sidebar-right{{end}}">
+            <main class="content">
+                <section class="error-page">
+                    <p class="error-code">404</p>
+                    <h1>Page not found</h1>
+                    <p class="error-message">The page you're looking for doesn't exist or may have moved.</p>
+                    <a href="{{baseURL}}" class="error-home-link">Back to home</a>
+                </section>
+            </main>
+
+            <aside class="sidebar" aria-hidden="false">
+                {{template "sidebar" .}}
+            </aside>
+        </div>
+        <button id="sidebar-edge-handle" class="sidebar-edge-handle" aria-label="Open sidebar" title="Open sidebar" aria-hidden="true" tabindex="-1">
+            <span class="sidebar-edge-handle-icon" aria-hidden="true"></span>
+        </button>
+
+        <footer class="site-footer">
+            <p>&copy; {{now | formatDate}} {{.Site.Site.Author}}</p>
+        </footer>
+    </div>
+</body>
+</html>
+{{end}}
