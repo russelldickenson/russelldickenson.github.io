@@ -10,19 +10,18 @@
     async function loadIndex() {
         if (searchIndex) return;
         try {
-            var baseURL = getBaseURL();
-            var searchPath = baseURL ? baseURL + 'search.json' : 'search.json';
-            const response = await fetch(searchPath);
-            searchIndex = await response.json();
-            
+            searchIndex = await window.blogSearchIndex.load(getBaseURL());
+
             // Pre-compute lowercased search strings to avoid repeating work on keystrokes
             if (searchIndex && Array.isArray(searchIndex.posts)) {
                 searchIndex.posts.forEach(post => {
-                    post._searchText = (
-                        (post.title || '') + ' ' + 
-                        (post.description || '') + ' ' + 
-                        (Array.isArray(post.tags) ? post.tags.join(' ') : '')
-                    ).toLowerCase();
+                    if (post._searchText === undefined) {
+                        post._searchText = (
+                            (post.title || '') + ' ' +
+                            (post.description || '') + ' ' +
+                            (Array.isArray(post.tags) ? post.tags.join(' ') : '')
+                        ).toLowerCase();
+                    }
                 });
             }
         } catch (e) {
@@ -68,7 +67,7 @@
 
         const baseURL = getBaseURL();
         searchResults.innerHTML = results.map(post => `
-            <a href="${baseURL}posts/${post.slug}.html">
+            <a href="${baseURL}posts/${encodeURIComponent(post.slug)}.html">
                 <span class="search-result-title">${escapeHTML(post.title)}</span>
                 <span class="search-result-date">${formatDate(post.date)}</span>
             </a>
